@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Book & Author API
+  description: API for managing books and authors
+  version: 1.0.0
+paths:
+  /books:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: A list of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    author:
+                      type: string
+    post:
+      summary: Add a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+      responses:
+        '201':
+          description: Book added
+
+  /authors/{id}/books:
+    get:
+      summary: Get books by author
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the author to get books for
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of books by the author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    published_year:
+                      type: integer
